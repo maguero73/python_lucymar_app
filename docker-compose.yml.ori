@@ -1,0 +1,58 @@
+version: '3.3'
+
+services:
+  backend:
+    image: mi-backendgastos-java2
+    container_name: backend-gastos
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://192.168.0.9:3306/lucymar_db
+      SPRING_DATASOURCE_USERNAME: lucymar_user
+      SPRING_DATASOURCE_PASSWORD: Admin
+    networks:
+      - red-gastos
+
+  frontend:
+    image: mi-frontendgastos-vue
+    container_name: frontend-gastos
+    ports:
+      - "8081:80"
+    networks:
+      - red-gastos
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    ports:
+      - "8082:80"
+    environment:
+      PMA_HOST: 192.168.0.9
+      PMA_USER: lucymar_user
+      PMA_PASSWORD: Admin
+    networks:
+      - red-gastos
+
+  jenkins:
+    image: repos-lucymar-app_jenkins
+    container_name: jenkins
+    user: root  # necesario para acceder al socket Docker
+    ports:
+      - "8083:8080"
+      - "50000:50000"
+    volumes:
+      - jenkins_home:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - DOCKER_HOST=unix:///var/run/docker.sock
+    networks:
+      - red-gastos
+
+networks:
+  red-gastos:
+    driver: bridge
+
+volumes:
+  jenkins_home:
+    external: true
+

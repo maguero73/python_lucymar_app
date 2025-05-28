@@ -1,0 +1,15 @@
+FROM jenkins/jenkins:lts
+
+USER root
+
+# Instalar Docker CLI
+RUN apt-get update && \
+    apt-get install -y maven && \
+    apt-get clean
+
+# Instalar Node.js y npm
+RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && \
+    apt-get install -y nodejs
+
+USER jenkins
+

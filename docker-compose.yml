@@ -1,0 +1,60 @@
+services:
+  backend: 
+    build:
+      context: ./backend
+    image: mi-backendgastos-python
+    container_name: backend-python
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://192.168.0.9:3306/lucymar_db
+      SPRING_DATASOURCE_USERNAME: lucymar_user
+      SPRING_DATASOURCE_PASSWORD: Admin
+    networks:
+      - red-gastos2
+
+  frontend:
+    build:
+      context: ./frontend
+    image: mi-frontendgastos-vue2
+    container_name: frontend-vue2
+    ports:
+      - "8081:80"
+    networks:
+      - red-gastos2
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    ports:
+      - "8082:80"
+    environment:
+      PMA_HOST: 192.168.0.9
+      PMA_USER: lucymar_user
+      PMA_PASSWORD: Admin
+    networks:
+      - red-gastos2
+
+  jenkins:
+    image: repos-lucymar-app-jenkins
+    container_name: jenkins
+    user: root  # necesario para acceder al socket Docker
+    ports:
+      - "8083:8080"
+      - "50000:50000"
+    volumes:
+      - jenkins_home:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - DOCKER_HOST=unix:///var/run/docker.sock
+    networks:
+      - red-gastos2
+
+networks:
+  red-gastos:
+    driver: bridge
+
+volumes:
+  jenkins_home:
+          external: true
+
