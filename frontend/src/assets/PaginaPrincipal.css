@@ -1,0 +1,302 @@
+.content {
+    position: relative;
+    padding: 20px;
+  }
+  
+  .logo-container {
+    position: absolute; /* Posiciona el contenedor de la imagen de forma absoluta */
+    top: 0;             /* Alinea al borde superior */
+    left: 0;            /* Alinea al borde izquierdo */
+    padding: 5px;      /* Añade un pequeño relleno para evitar que la imagen esté pegada al borde */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+  }
+  
+  .logo {
+    width: 250px; /* Ajusta el ancho de la imagen a 250px */
+    height: auto; /* Mantén la proporción de la imagen */
+    transition: transform 1s ease-in-out; /* Cambié a 1 segundo para que la rotación sea visible */
+  }
+  
+  .rotate {
+    transform: rotate(360deg);
+  }
+  
+  .labels {
+    margin-top: 120px; /* Asegura que las etiquetas no se superpongan con el logo */
+    display: flex;     /* Utiliza flexbox para alinear los elementos en línea */
+    justify-content: space-between;
+    padding-left: 20px; /* Añade un pequeño relleno a la izquierda para alinear mejor con el logo */
+  }
+  
+  .ctrl-gastos {
+    display: block;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 26px;
+    color: blue;
+    margin-top: 30px;
+    font-weight: bold;
+    top: '40px'
+  }
+  
+  .est-rdos {
+    display: block;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 26px;
+    color: blue;
+    position: absolute;
+    left: 900px;
+    margin-top: 30px;
+    font-weight: bold;
+    margin-left:auto /* Mueve la etiqueta a la derecha */
+  }
+  
+  .dropdown {
+    margin-top: 50px; /* Añade un margen superior para separarlo del contenido anterior */
+    padding-left: 20px; /* Añade un pequeño relleno a la izquierda para alinear mejor con el logo */
+  }
+  
+  .dropdown label {
+    font-size: 16px;
+    color: blue;
+  }
+  
+  .dropdown select {
+    font-size: 16px;
+    padding: 5px;
+    margin-left: 10px;
+  }
+
+  #concepto2 label {
+    
+    font-size: 16px;
+    color: blue;
+    
+  }
+
+  #concepto2 select {
+    font-size: 16px;
+    padding: 5px;
+    margin-left: 10px;
+
+  }
+
+  #montoi {
+
+    margin-top: 30px;
+  }
+  
+  .textbox {
+    width: 400px; /* esto agranda el recuadro horizontalmente */
+    max-width: 500px; 
+    width: 50vw; /* 50% del ancho de la pantalla */
+    margin-top: 20px; /* Añade un margen superior para separarlo del contenido anterior */
+    padding-left: 20px; /* Añade un pequeño relleno a la izquierda para alinear mejor con el logo */
+  }
+  
+  .textbox label {
+    width: 400px;
+    font-size: 16px;
+    color: blue;
+  }
+  
+  .textbox input {
+    font-size: 16px;
+    padding: 5px;
+    margin-left: 10px;
+  }
+  
+  .radio-buttons {
+    margin-top: 20px; /* Añade un margen superior para separarlo del contenido anterior */
+    padding-left: 20px; /* Añade un pequeño relleno a la izquierda para alinear mejor con el logo */
+  }
+  
+  .radio-buttons label {
+    font-size: 16px;
+    color: blue;
+    margin-right: 10px; /* Espacio entre los labels de los radios */
+  }
+  
+  .radio-buttons input {
+    position: relative;
+    top: -20px;
+    margin-right: 10px; /* Espacio entre los radios */
+  }
+
+  .radio-buttons-i{
+    position: relative;
+    top: 300px;
+    margin-right: 10px; /* Espacio entre los radios */
+
+  }
+
+  .radio-buttons-i label {
+    font-size: 16px;
+    color: blue;
+    margin-right: 10px; /* Espacio entre los labels de los radios */
+    margin-left: 20px;
+  }
+
+  body{
+    
+    padding-bottom: 100px; /* Espacio adicional abajo */
+    background-color: rgb(37, 27, 27);
+  }
+
+  .fecha {
+
+    font-size: 16px;
+    color: blue;  
+    margin-top: 20px;
+    padding-left: 20px;
+  }
+
+
+  .fechai {
+    font-size: 16px;
+    color: blue;  
+    margin-top: 20px;
+    padding-left: 20px; 
+    margin-left: 20px;
+  }
+
+  /* BOTONES SECCION GASTOS !! */
+
+
+/* Estilo general para ambos botones de gastos*/
+.botonera-gastos {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* o center, según lo quieras */
+  gap: 12px; /* espacio entre los botones */
+  margin: 20px; /* separación del borde */
+}
+
+.botonera-gastos {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* o center, según lo quieras */
+  gap: 12px; /* espacio entre los botones */
+  margin: 20px; /* separación del borde */
+}
+
+.botonera-gastos button {
+  background-color: #007BFF;
+  color: white;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  width: 200px;         /* fuerza el mismo ancho */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.botonera-gastos button:hover {
+  background-color: #0056b3;
+}
+
+.botonera-gastos button:active {
+  transform: scale(0.96);
+}
+
+.botonera-gastos {
+  position: relative;
+  top: -380px;    /* sube */
+  left: 350px;   /* mueve a la derecha */
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+
+/* SECCION INGRESOS !! */
+/* Estilo general para ambos botones de ingresos*/
+.botonera-ingresos {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* o center, según lo quieras */
+  gap: 12px; /* espacio entre los botones */
+  margin: 20px; /* separación del borde */
+}
+
+.botonera-ingresos {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* o center, según lo quieras */
+  gap: 12px; /* espacio entre los botones */
+  margin: 20px; /* separación del borde */
+}
+
+.botonera-ingresos button {
+  background-color: #007BFF;
+  color: white;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  width: 200px;         /* fuerza el mismo ancho */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.botonera-ingresos button:hover {
+  background-color: #0056b3;
+}
+
+.botonera-ingresos button:active {
+  transform: scale(0.96);
+}
+
+.botonera-ingresos {
+  position: relative;
+  top: -40px;    /* sube */
+  left: 350px;   /* mueve a la derecha */
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* BOTON DE CERRAR SESION */
+
+ #logoutBtn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 10px 20px;
+    background-color: gray;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    z-index: 1000;
+    transition: background-color 0.3s;
+  }
+
+  #logoutBtn:hover {
+    background-color: #ff1a1a;
+  }
+
+  #estaBtn {
+    position: fixed;
+    top: 60px;
+    right: 20px;
+    padding: 10px 20px;
+    background-color: gray;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    z-index: 1000;
+    transition: background-color 0.3s;
+  }
+
+  #estaBtn:hover {
+    background-color: #ff1a1a;
+  }

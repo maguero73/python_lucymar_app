@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lucymar App</title>
+
+  <script>
+  console.log("✅ Autenticación exitosa! Entraste a la página principal");
+  </script>
+   
+   
+  <script>
+    
+    window.onload = function() {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        // Redirige a login si no hay token
+        window.location.href = 'login.html';
+      }
+    }
+    
+  </script>
+  
+</head>
+<body>
+  <button id="logoutBtn">Cerrar sesión</button>
+  <button id="estaBtn" class="submit" type="submit">Estadísticas</button>
+  <div id="app"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+
+
+  <script>
+    new Vue({
+      el: '#app',
+      data() {
+        return {
+          isRotating: false
+        };
+      },
+      mounted() {
+        this.animateLogo(); // Llamar a la animación cuando se monte el componente
+      },
+      methods: {
+        animateLogo() {
+          this.isRotating = true;
+          setTimeout(() => {
+            this.isRotating = false;
+          }, 1000); // Duración de la rotación
+        }
+      },
+
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+    const token = localStorage.getItem("token"); // Recuperar el token
+    console.log("Valor del titular seleccionado:", document.getElementById("titular").value);
+
+    fetch('http://localhost:8080/api/titulares', 
+    {
+    headers: {
+      "Authorization": `Bearer ${token}`,
+      "Content-Type": "application/json"
+    }
+  })
+
+  .then(response => {
+      if (!response.ok) {
+        throw new Error("No autorizado o error en la solicitud");
+      }
+      return response.json();
+    })
+    .then(titulares => {
+      const select = document.getElementById('titular');
+      if (!select) {
+        console.error('No se encontró el elemento select con id="titular"');
+        return;
+      }
+
+      titulares.forEach(titular => {
+        const option = document.createElement('option');
+        option.value = titular.id;
+        option.textContent = titular.nombre;
+        select.appendChild(option);
+      });
+    })
+    .catch(error => {
+      console.error('Error al cargar titulares:', error);
+    });
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+  const token = localStorage.getItem("token");
+
+  fetch("http://localhost:8080/api/tipos-gasto", {
+    method: "GET",
+    headers: {
+      "Authorization": "Bearer " + token,
+      "Content-Type": "application/json"
+    }
+  }) 
+
+      .then(response => response.json())
+      .then(conceptos => {
+        const select = document.getElementById('concepto');
+        if (!select) {
+          console.error('No se encontró el elemento select con id="concepto"');
+          return;
+        }
+
+        conceptos.forEach(concepto => {
+          const option = document.createElement('option');
+          option.value = concepto.codigo;
+          option.textContent = concepto.descripcion;
+          select.appendChild(option);
+        });
+      })
+      .catch(error => {
+        console.error('Error al cargar conceptos de gasto:', error);
+      });
+  });
+  
+  </script>
+
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const token = localStorage.getItem("token");
+    // Asignar evento al botón GRABAR
+    const grabarBtn = document.getElementById("grabarGastoBtn");
+    if (grabarBtn) {
+      grabarBtn.addEventListener("click", function () {
+        const titularValue = document.getElementById("titular").value;
+if (!titularValue) {
+  alert("Debes seleccionar un titular");
+  return;
+}
+        const gasto = {
+          cod_gasto: parseInt(document.getElementById("concepto").value),
+          cod_titular: parseInt(document.getElementById("titular").value),
+          monto: parseFloat(document.getElementById("monto").value),
+          fecha: document.getElementById("fecha").value,
+          codigo_moneda: document.querySelector('input[name="moneda"]:checked')?.value || '',
+          tipo_cambio: 1.0,
+          fecha_creacion: new Date().toISOString().split("T")[0]
+        };
+
+        console.log("Datos enviados al backend:", gasto);
+
+        fetch("http://localhost:8080/api/gastos", {
+          method: "POST",
+          headers: {
+            "Authorization": "Bearer " + token,
+            'Content-Type': 'application/json'
+        },
+          body: JSON.stringify(gasto)
+        })
+          .then(response => {
+            if (!response.ok) {
+              return response.json().then(error => {
+                throw new Error(`Error ${error.codigo}: ${error.mensaje}`);
+              });
+            }
+            return response.json();
+          })
+          .then(data => {
+            alert("✅ Gasto guardado correctamente");
+          })
+          .catch(async error => {
+  const errorText = await error.text?.() || error.message;
+  console.error("❌ Detalle del error:", errorText);
+  alert("Hubo un error al guardar el gasto:\n" + errorText);
+});
+      });
+    } else {
+      console.error('No se encontró el botón con id="grabarGastoBtn"');
+    }
+
+  });
+
+  document.addEventListener("DOMContentLoaded", () => {
+  const logoutBtn = document.getElementById("logoutBtn");
+  if (logoutBtn) {
+    logoutBtn.addEventListener("click", function () {
+      if (confirm("¿Estás seguro que querés cerrar sesión?")) {
+
+
+function cerrarSesion() {
+    // 1. Borra el token del localStorage
+    localStorage.removeItem('token');
+  // 2. Redirige al login
+  window.location.href = 'login.html';
+}
+
+cerrarSesion();
+
+
+
+
+      }
+    });
+  }
+  
+  if (estaBtn) {
+    estaBtn.addEventListener("click", function () {
+      window.location.href = 'estadistica.html';
+    })
+  }
+  
+});
+</script>
+
+  
+
+
+</body>
+
+
+</html>

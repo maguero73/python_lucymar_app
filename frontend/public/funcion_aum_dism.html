@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lucymar_app</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+
+
+<script src="Jquery/jquery-3.7.1.min.js"></script>
+  
+<script>
+
+
+$(document).ready(function(){
+
+
+  document.getElementById("aumenta1").addEventListener("click", aumentar, false);
+  document.getElementById("disminuye1").addEventListener("click", disminuir, false);
+
+  var elementos =document.querySelectorAll("li");
+
+  for (var i=0;i<elementos.length;i++){
+
+    elementos[i].addEventListener("mouseover", poner_imagen, false);
+    elementos[i].addEventListener("mouseout", quitar_imagen, false);
+  }
+
+
+}); 
+
+function aumentar(){
+
+  var tamDefecto=$("#noticia1").css("font-size");
+
+  tamDefecto=parseFloat(tamDefecto);
+
+  $("#noticia1").css("font-size", tamDefecto*1.05);
+
+  }
+
+function disminuir(){
+
+  var tamDefecto=$("#noticia1").css("font-size");
+
+  tamDefecto=parseFloat(tamDefecto);
+
+  $("#noticia1").css("font-size", tamDefecto*0.95);
+
+}
+
+
+function poner_imagen(e){
+
+  if (e.target==elem1){
+    $("#elem1").addClass("destacar");
+    $("img").attr("src", "3.jpeg");
+  } else if(e.target==elem2){
+      $("#elem2").addClass("destacar");
+      $("img").attr("src", "3.jpeg");
+    }else if(e.target==elem3){
+      $("#elem3").addClass("destacar");
+      $("img").attr("src", "3.jpeg");
+    }else if(e.target==elem4){
+      $("#elem4").addClass("destacar");
+      $("img").attr("src", "3.jpeg");
+  }
+  
+}
+
+function quitar_imagen(e){
+
+  if (e.target==elem1){
+
+    $("#elem1").removeClass("destacar");
+
+    $("img").removeAttr("src","3.jpeg");
+
+  } else if(e.target==elem2){
+      $("#elem2").removeClass("destacar");
+      $("img").removeAttr("src","3.jpeg");
+    }else if(e.target==elem3){
+      $("#elem3").removeClass("destacar");
+      $("img").removeAttr("src","3.jpeg");
+    }else if(e.target==elem4){
+      $("#elem4").removeClass("destacar");
+      $("img").removeAttr("src","3.jpeg");
+
+
+  }
+
+}
+
+</script>
+
+<body>
+  <div class="contenedor1">
+      <button id="boton1">Botón 1</button>
+      <button id="boton2">Botón 2</button>
+      
+  </div>
+
+  <h1>NOTICIAS</h1> 
+  <div id="noticia1">"Hoy desperté con muchas ganas de continuar con este curso"
+<table>
+  <td style="text-align:left">
+    <input type="button" value="Aumentar" id="aumenta1">
+  </td>
+  <td style="text-align:right">
+  <input type="button" value="Disminuir" id="disminuye1">
+</td>
+  </table>
+</div>
+  
+  
+  <script src="script.js"></script>
+
+  <div id="contenedor2">
+
+    <ul>
+
+      <li id="elem1">Imagen 1</li>
+      <li id="elem2">Imagen 2</li>
+      <li id="elem3">Imagen 3</li>
+      <li id="elem4">Imagen 4</li>
+
+    </ul>
+
+
+  </div>
+
+  <div id="contenedor3">
+
+    <img src="">
+
+  </div>
+  
+</body>
+</html>

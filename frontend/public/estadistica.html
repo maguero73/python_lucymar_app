@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Formulario Estadístico</title>
+</head>
+<body>
+
+  <h2>Formulario de Estadísticas</h2>
+
+  <form id="statsForm">
+    <div class="grid">
+      <div class="header">Categoría</div>
+      <div class="header">Enero</div>
+      <div class="header">Febrero</div>
+      <div class="header">Marzo</div>
+
+      <div class="cell">Ventas</div>
+      <div class="cell"><input type="number" name="ventas_ene"></div>
+      <div class="cell"><input type="number" name="ventas_feb"></div>
+      <div class="cell"><input type="number" name="ventas_mar"></div>
+
+      <div class="cell">Clientes</div>
+      <div class="cell"><input type="number" name="clientes_ene"></div>
+      <div class="cell"><input type="number" name="clientes_feb"></div>
+      <div class="cell"><input type="number" name="clientes_mar"></div>
+    </div>
+  </form>
+  <button id="atrasBtn" class="submit" type="submit">Atrás</button>
+</body>
+</html>
+
+<script>
+
+if (atrasBtn) {
+    atrasBtn.addEventListener("click", function () {
+      window.location.href = 'pagina_principal.html';
+    })
+  }
+
+
+</script>

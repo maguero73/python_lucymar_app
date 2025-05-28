@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+
+</head>
+<body>
+  <div class="cabecera">
+    <p class="logo">Mariano Aguero</p>
+  </div>
+
+  <div id="login">
+    <p id="abierto">login</p>
+    <form id="login-form">
+      <p>
+        <label for="username">Username:</label>
+        <input type="text" name="username" id="usuario">
+      </p>
+      <p>
+        <label for="password">Password:</label>
+        <input type="password" name="password" id="contraseña">
+      </p>
+      <p>
+        <input type="submit" name="button" id="loginBtn" value="Enviar">
+      </p>
+    </form>
+  </div>
+
+  <div class="contenido">
+    <div class="principal">
+      <h1>LUCYMAR - APP</h1>
+      <p>Haga clic en el botón de login</p>
+    </div>
+  </div>
+
+  <script src="Jquery/jquery-3.7.1.min.js"></script>
+
+   <script>
+
+  $(document).ready(function () {
+    $("#abierto").click(function () {
+      $("#login form").slideToggle(300);
+    });
+
+    $("#login-form").submit(function (event) {
+      event.preventDefault();
+
+      const username = document.getElementById("usuario").value;
+      const password = document.getElementById("contraseña").value;
+
+
+      if (username === "" || password === "") {
+        alert("Por favor, complete ambos campos.");
+        return;
+      }
+
+
+      fetch("http://localhost:8080/api/auth/login", {
+  method: "POST",
+  headers: { 
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify({ username, password })
+})
+.then(async response => {
+  const data = await response.json().catch(() => null);
+
+  if (!response.ok) {
+    const msg = data?.error || "Credenciales incorrectas o error del servidor";
+    throw new Error(msg);
+  }
+
+  if (!data || !data.token) {
+    throw new Error("Token no recibido del backend");
+  }
+
+  localStorage.setItem("token", data.token);
+  console.log("Autenticación exitosa");
+  window.location.href = "pagina_principal.html";
+})
+.catch(error => {
+  console.error("Error en login:", error.message);
+  alert("Error en login: " + error.message);
+});
+
+    });
+  });
+</script>
+
+
+  
+</body>
+</html>
