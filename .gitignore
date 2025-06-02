@@ -3,11 +3,6 @@ backend/venv/
 frontend/venv/
 .env
 
-# Archivos de Python
-__pycache__/
-*.py[cod]
-*.sqlite3
-
 # Archivos de logs
 *.log
 
