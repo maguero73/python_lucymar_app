@@ -1,0 +1,25 @@
+# Entorno virtual
+backend/venv/
+frontend/venv/
+.env
+
+# Archivos de Python
+__pycache__/
+*.py[cod]
+*.sqlite3
+
+# Archivos de logs
+*.log
+
+# VSCode o editores
+.vscode/
+.idea/
+
+# Node (si usás Vue con npm/yarn)
+node_modules/
+dist/
+
+# Archivos de sistema
+.DS_Store
+Thumbs.db
+
