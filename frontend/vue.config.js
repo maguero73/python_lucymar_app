@@ -1,5 +1,7 @@
 const { defineConfig } = require('@vue/cli-service')
 
+//TENGO CONFIGURADO VUEJS EN MODO MPA (MULTIPLES PAGES APPLICATIONS)
+
 module.exports = defineConfig({
   devServer: {
     port: 8081,

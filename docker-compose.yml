@@ -23,38 +23,8 @@ services:
     networks:
       - red-gastos2
 
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin
-    container_name: phpmyadmin
-    ports:
-      - "8082:80"
-    environment:
-      PMA_HOST: 192.168.0.9
-      PMA_USER: lucymar_user
-      PMA_PASSWORD: Admin
-    networks:
-      - red-gastos2
-
-  jenkins:
-    image: repos-lucymar-app-jenkins
-    container_name: jenkins
-    user: root  # necesario para acceder al socket Docker
-    ports:
-      - "8083:8080"
-      - "50000:50000"
-    volumes:
-      - jenkins_home:/var/jenkins_home
-      - /var/run/docker.sock:/var/run/docker.sock
-    environment:
-      - DOCKER_HOST=unix:///var/run/docker.sock
-    networks:
-      - red-gastos2
 
 networks:
-  red-gastos:
+  red-gastos2:
     driver: bridge
-
-volumes:
-  jenkins_home:
-          external: true
 

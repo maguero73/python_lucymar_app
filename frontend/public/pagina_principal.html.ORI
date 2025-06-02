@@ -6,13 +6,23 @@
   <title>Lucymar App</title>
 
   <script>
-  console.log("Autenticación ok! Entraste a la página principal");
+  console.log("✅ Autenticación exitosa! Entraste a la página principal");
   </script>
    
+   
+  <script>
+    
+    window.onload = function() {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        // Redirige a login si no hay token
+        window.location.href = 'login.html';
+      }
+    }
+    
+  </script>
+  
 </head>
-
-
-
 <body>
   <button id="logoutBtn">Cerrar sesión</button>
   <button id="estaBtn" class="submit" type="submit">Estadísticas</button>
@@ -108,68 +118,62 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 <script>
-  document.addEventListener("DOMContentLoaded", function () {
-  console.log("Buscando botón grabar...");
+  document.addEventListener("DOMContentLoaded", () => {
+    // Asignar evento al botón GRABAR
+    const grabarBtn = document.getElementById("grabarGastoBtn");
+    if (grabarBtn) {
+      grabarBtn.addEventListener("click", function () {
+        const titularRaw = document.getElementById("titular").value;
+const codTitular = parseInt(titularRaw);
 
-  const grabarBtn = document.getElementById("grabarGastoBtn");
-  console.log("grabarBtn:", grabarBtn);
+const fechaISO = document.getElementById("fecha").value;
 
-if (grabarBtn) {
-  grabarBtn.addEventListener("click", function () {
-    const codTitular = document.getElementById("titular").value;
-    const codGasto = document.getElementById("concepto").value;
-    const monto = parseFloat(document.getElementById("monto").value);
-    const fecha =document.getElementById("fecha").value + "T00:00:00";
-    const cod_moneda= document.querySelector('input[name="moneda"]:checked')?.value || '';
-    const tipo_cambio= 1.0;
 
-    if (!codTitular || !codGasto || !monto || !fecha) {
-      alert("Por favor completa todos los campos obligatorios.");
-      return;
-    }
-  
-    const gasto = {
-      cod_gasto: codGasto,
-      cod_titular: codTitular,
-      monto: monto,
-      fecha: fecha,  // Debe estar en formato "YYYY-MM-DD"
-      cod_moneda: cod_moneda,
-      tipo_cambio: tipo_cambio,
-      //fecha_creacion:fecha_creacion,
-    };
-      
-    console.log("➡️ Enviando gasto al backend:", gasto);
+if (isNaN(codTitular)) {
+  alert("Debes seleccionar un titular válido");
+  return;
+}
+        const gasto = {
+          cod_gasto: parseInt(document.getElementById("concepto").value),
+          cod_titular: codTitular,
+          monto: parseFloat(document.getElementById("monto").value),
+          fecha: fechaISO
+          //codigo_moneda: document.querySelector('input[name="moneda"]:checked')?.value || '',
+          //tipo_cambio: 1.0,
+          //fecha_creacion: new Date().toISOString().split("T")[0]
+        };
 
-    fetch("http://localhost:8000/api/gastos/test", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(gasto)
-    })
-      .then(response => {
-        if (!response.ok) {
-          return response.json().then(error => {
-            throw new Error(`Error ${response.status}: ${JSON.stringify(error)}`);
-          });
-        }
-        return response.json();
-      })
-      .then(data => {
-        alert("Gasto guardado correctamente");
-        console.log("Respuesta del backend:", data);
-      })
-      .catch(error => {
-        console.error("Error al guardar gasto:", error);
-        alert("Error al guardar el gasto:\n" + error.message);
+        console.log("Datos enviados al backend:", gasto);
+
+        fetch("http://localhost:8000/api/gastos/test", {
+          method: "POST",
+          headers: {
+            'Content-Type': 'application/json'
+        },
+          body: JSON.stringify(gasto)
+        })
+          .then(response => {
+            if (!response.ok) {
+              return response.json().then(error => {
+                throw new Error(`Error ${error.codigo}: ${error.mensaje}`);
+              });
+            }
+            return response.json();
+          })
+          .then(data => {
+            alert("✅ Gasto guardado correctamente");
+          })
+          .catch(async error => {
+  const errorText = await error.text?.() || error.message;
+  console.error("Detalle del error:", errorText);
+  alert("Hubo un error al guardar el gasto:\n" + errorText);
+});
       });
-  });
-} else {
-  console.error("Botón grabar NO encontrado en el DOM");
+    } else {
+      console.error('No se encontró el botón con id="grabarGastoBtn"');
     }
+
   });
-
-
 
   document.addEventListener("DOMContentLoaded", () => {
   const logoutBtn = document.getElementById("logoutBtn");
